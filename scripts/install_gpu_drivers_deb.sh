@@ -23,23 +23,29 @@ if [ $has_gpu_driver -ne 0 ]; then
   #Install gcc as needed by the nvidia driver
   echo "Installing build essentials."
   apt update -y
-  apt install build-essential -y
+  apt dist-upgrade -y
 
   # Install Nvidia
   echo "Downloading Nvidia drivers."
-  nvidia_run="NVIDIA-Linux-ppc64le-440.33.01.run"
-  wget http://us.download.nvidia.com/tesla/440.33.01/${nvidia_run}
-  chmod +x ${nvidia_run}
+  deb_file=nvidia-driver-local-repo-ubuntu1804-440.33.01_1.0-1_ppc64el.deb
+  wget http://us.download.nvidia.com/tesla/440.33.01/${deb_file}
 
   echo "Installing Nvidia drivers."
-  ./${nvidia_run} --silent
+  dpkg -i ${deb_file}
+  apt-key add /var/nvidia-driver-local-repo-440.*/*.pub
+
+  apt-get update -y
+  apt-get install cuda-drivers -y
 
   # Cleaning up
-  echo "Removing .run file "
-  rm ${nvidia_run}
+  echo "Removing .deb file "
+  dpkg -P `dpkg -l | grep nvidia-driver-local-repo | cut -d " " -f 3`
+  apt-get clean -y
+  rm ${deb_file}
 
   echo "Reloading the daemon"
   systemctl daemon-reload
+  systemctl enable nvidia-persistenced
 
   nvidia-smi
 else

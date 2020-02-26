@@ -56,8 +56,8 @@ resource "ibm_is_instance" "vm" {
   zone = "${var.vpc_zone}"
   keys      = ["${ibm_is_ssh_key.public_key.id}"]
   timeouts {
-    create = "10m"
-    delete = "10m"
+    create = "120m"
+    delete = "120m"
   }
 }
 
@@ -111,8 +111,8 @@ ENDENVTEMPL
     inline = [
       "set -e",
       "chmod u+x /tmp/scripts*/*",
-#      "/tmp/scripts/install_gpu_drivers.sh",
-#      "/tmp/scripts/install_wmlce.sh",
+      "/tmp/scripts/install_gpu_drivers.sh",
+      "/tmp/scripts/install_wmlce.sh",
       "rm -rf /tmp/scripts",
       "exit 0",
     ]
@@ -120,7 +120,7 @@ ENDENVTEMPL
       type = "ssh"
       user = "root"
       agent = false
-      timeout = "5m"
+      timeout = "120m"
       host = "${ibm_is_floating_ip.fip1.address}"
       private_key = "${tls_private_key.ssh_key_keypair.private_key_pem}"
     }

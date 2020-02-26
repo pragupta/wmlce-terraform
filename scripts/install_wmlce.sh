@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+#source env file
+source /tmp/scripts/env.sh
+
 #Install Miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-ppc64le.sh
 bash Miniconda3-latest-Linux-ppc64le.sh -b -f
@@ -16,4 +19,4 @@ conda activate wmlce_env_${WMLCE_VERSION}
 #Install wmlce
 export IBM_POWERAI_LICENSE_ACCEPT=yes
 #conda install powerai=${WMLCE_VERSION} -y
-conda install tensorflow-gpu powerai-release=${WMLCE_VERSION} -y
+conda install ddl-tensorflow powerai-release=${WMLCE_VERSION} -y
