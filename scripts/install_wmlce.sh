@@ -18,5 +18,9 @@ conda activate wmlce_env_${WMLCE_VERSION}
 
 #Install wmlce
 export IBM_POWERAI_LICENSE_ACCEPT=yes
-conda install powerai=${WMLCE_VERSION} -y
-#conda install ddl-tensorflow powerai-release=${WMLCE_VERSION} -y
+#conda install powerai=${WMLCE_VERSION} -y
+conda install ddl-tensorflow powerai-release=${WMLCE_VERSION} -y
+
+#Activate this env every time user ssh into this VM
+echo "source ${HOME}/miniconda3/etc/profile.d/conda.sh" >> ${HOME}/.bashrc
+echo "conda activate wmlce_env_${WMLCE_VERSION}" >> ${HOME}/.bashrc
