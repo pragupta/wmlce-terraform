@@ -111,9 +111,9 @@ ENDENVTEMPL
     inline = [
       "set -e",
       "chmod u+x /tmp/scripts*/*",
-      "/tmp/scripts/install_gpu_drivers.sh",
-      "/tmp/scripts/install_wmlce.sh",
-      "rm -rf /tmp/scripts",
+#      "/tmp/scripts/install_gpu_drivers.sh",
+#      "/tmp/scripts/install_wmlce.sh",
+#      "rm -rf /tmp/scripts",
       "exit 0",
     ]
     connection {
