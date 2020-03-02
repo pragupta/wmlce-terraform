@@ -43,9 +43,13 @@ resource "ibm_is_security_group_rule" "sg1-tcp-rule" {
   }
 }
 
+data ibm_is_image "bootimage" {
+    name = "${var.boot_image_name}"
+}
+
 resource "ibm_is_instance" "vm" {
   name = "${var.basename}-vm1"
-  image = "${var.boot_image_id}"
+  image = "${data.ibm_is_image.bootimage.id}"
   profile = "${var.vm_profile}"
 
   primary_network_interface = {
