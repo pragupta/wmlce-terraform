@@ -20,8 +20,8 @@ variable "vpc_zone" {
 
 variable "vm_profile" {
   description = "What resources or VM profile should we create for compute? Default is 2 GPUs, 24 vCPUs, 224G memory, 72Gbps Network"
-#  default = "cp2-2x4"
-  default = "gp2-8x64x2"
+  default = "cp2-2x4"
+ # default = "gp2-8x64x2"
 #  default = "gp2-24x224x2"
 }
 
