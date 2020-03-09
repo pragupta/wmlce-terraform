@@ -15,35 +15,44 @@
 
 sleep 60
 
-# Install NVIDIA Driver
-modinfo nvidia && which nvidia-smi
-has_gpu_driver=$?
+#source env file
+source /tmp/scripts/env.sh
 
-if [ $has_gpu_driver -ne 0 ]; then
+echo "In GPU driver install script"
+echo "GPU_CONFIG = $GPU_CONFIG"
+if [ "$GPU_CONFIG" -eq 1 ]; then
 
-  # Install Nvidia
-  echo "Downloading Nvidia drivers."
-  deb_file=nvidia-driver-local-repo-ubuntu1804-440.33.01_1.0-1_ppc64el.deb
-  wget http://us.download.nvidia.com/tesla/440.33.01/${deb_file}
+    # Install NVIDIA Driver
+    modinfo nvidia && which nvidia-smi
+    has_gpu_driver=$?
 
-  echo "Installing Nvidia drivers."
-  dpkg -i ${deb_file}
-  apt-key add /var/nvidia-driver-local-repo-440.*/*.pub
+    if [ $has_gpu_driver -ne 0 ]; then
 
-  apt-get -o Dpkg::Use-Pty=0 update -qq
-  apt-get -o Dpkg::Use-Pty=0 install -qq cuda-drivers
+      # Install Nvidia
+      echo "Downloading Nvidia drivers."
+      deb_file=nvidia-driver-local-repo-ubuntu1804-440.33.01_1.0-1_ppc64el.deb
+      wget http://us.download.nvidia.com/tesla/440.33.01/${deb_file}
 
-  # Cleaning up
-  echo "Removing deb file "
-  dpkg -P `dpkg -l | grep nvidia-driver-local-repo | cut -d " " -f 3`
-  apt-get clean -y
-  rm ${deb_file}
+      echo "Installing Nvidia drivers."
+      dpkg -i ${deb_file}
+      apt-key add /var/nvidia-driver-local-repo-440.*/*.pub
 
-  echo "Reloading the daemon"
-  systemctl daemon-reload
-  systemctl enable nvidia-persistenced
+      apt-get -o Dpkg::Use-Pty=0 update -qq
+      apt-get -o Dpkg::Use-Pty=0 install -qq cuda-drivers
 
-  nvidia-smi
-else
-  echo "Nvidia drivers installed on machine already. Skipping install of drivers."
+      # Cleaning up
+      echo "Removing deb file "
+      dpkg -P `dpkg -l | grep nvidia-driver-local-repo | cut -d " " -f 3`
+      apt-get clean -y
+      rm ${deb_file}
+
+      echo "Reloading the daemon"
+      systemctl daemon-reload
+      systemctl enable nvidia-persistenced
+
+      nvidia-smi
+    else
+      echo "Nvidia drivers installed on machine already. Skipping install of drivers."
+    fi
 fi
+

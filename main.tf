@@ -99,6 +99,10 @@ resource "null_resource" "provisioners" {
 #!/bin/bash -xe
 export WMLCE_VERSION=${var.wmlce_version}
 export PYTHON_VERSION=${var.python_version}
+if [[  "${var.vm_profile}" =~ "gp" ]];
+then
+    export GPU_CONFIG=1
+fi
 ENDENVTEMPL
     destination = "/tmp/scripts/env.sh"
     connection {
