@@ -4,7 +4,7 @@ Deploy a Linux Apache WMLCE stack on Ubuntu 18.04 ppc64le running in IBM Cloud V
 
 ## Prerequisites
 
-1. Terraform >= 0.11.14
+1. Terraform >= 0.12.23
 2. IBM Cloud Terraform Provider >= 0.20.0
 3. IBM Cloud API Key with authorization to provision in IBM Cloud VPC and IBM Cloud Block Storage for VPC
 
