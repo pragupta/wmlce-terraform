@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#Without this sleep, there are errors from update manager's daemon as it is
+#being used by another process. Need to figure out a way to wait for it to
+#free up before removing the sleep.
 sleep 60
 
 #source env file
