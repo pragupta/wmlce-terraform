@@ -1,6 +1,6 @@
 # Deploy Watson Machine Learning Community Edition (WMLCE) software stack using Terraform on IBM Cloud VPC
 
-Deploy a Linux Apache WMLCE stack on Ubuntu 18.04 ppc64le running in IBM Cloud VPC
+Deploy a Linux Apache WMLCE stack on Ubuntu 18.04 ppc64le running in IBM Cloud VPC. These terraform scripts are also compatible with IBM Cloud Schematics.
 
 ## Prerequisites
 
@@ -17,9 +17,7 @@ This deployment provisions:
   4. Opens Ports 22 to access SSH console
   5. Sets up NVIDIA driver and installs WMLCE packages
 
-After install you can access the default web page of Ubuntu VM by IP:
-
-    https://<IP>/
+After install, you can ssh into the VM through the floating IP and private ssh key
 
 To run the example, you will need to:
 
@@ -51,7 +49,6 @@ terraform destroy
 ```
 
 ## Future Improvements being worked on
-- Omptimizing time to download WMLCE packages to the VM
 - Not having to create a new Virtual Server Instance each time
 
 
